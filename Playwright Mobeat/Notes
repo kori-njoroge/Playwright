@@ -1,3 +1,4 @@
+<!-- Running Playwight with CLI -->
 Installing Playwright  - npm Playwright@latest >> follow the process to create the intial template
 Running all Tests on all browsers available - npx playwright Tests
 Running Playwright on a single browser - npx playwright test --project=browsername
@@ -7,3 +8,9 @@ Executing a single file among many in a single browser- npx playwright test exam
 Executing a specific test in a file - npx playwright test -g "test name"
 test.skip() ->> Skips the test when the test file is run
 test.only() ->> only runs the single test
+
+
+
+<!--Running Playwright on UI  -->
+run in terminal - npx playwright test --ui
+![alt text](image.png)

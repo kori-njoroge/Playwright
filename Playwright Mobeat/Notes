@@ -13,4 +13,10 @@ test.only() ->> only runs the single test
 
 <!--Running Playwright on UI  -->
 run in terminal - npx playwright test --ui
-![alt text](image.png)
+![Playwright UI](image.png)
+
+
+<!-- Trace view and Debug -->
+npx playwright test --project=chromium --trace on - to run the tests and trace
+npx playwright test --project=chromium --debug - to run the tests and trace
+1. VS code ![VS Code](image-1.png)

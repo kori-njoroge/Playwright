@@ -35,4 +35,39 @@ test.describe("Test suite 2", ()=>{
 
 })
 
+test.describe.only("Locator Syntax", ()=>{
+    test.beforeEach(async({page})=>{
+        await page.getByText('Forms').click()
+        await page.getByText('Form Layouts').click()
+    })
+
+    test("Locator sysntax Rules",async({page})=>{
+        // locate by tag name
+        await page.locator('input').first().click()
+
+        // Loacte by ID
+        page.locator('#inputEmail1')
+
+        // Locate by calss value
+        page.locator('.shape-rectangle')
+
+        // by attribute
+        page.locator('[placeholder="Email"]')
+
+        // by class value (full)
+        page.locator('[Class="input-full width more-class-names"]')
+
+        // Combine different selectors
+        page.locator('input[placeholder="Email"].shape-rectangle[nbinput]')
+
+        // by XPath(NOT RECOMMENDED)
+        page.locator('//*[@id="inputEmail1]')
+
+        // by partial text match
+        page.locator(':text("Using")')
+
+        // by exact text match
+        page.locator(':text-is("Using the Grid")')
+    })
+})
 

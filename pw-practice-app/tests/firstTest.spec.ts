@@ -158,5 +158,8 @@ test.describe('Locating  Elements', ()=>{
 
         expect(emailValue).toEqual('korijunior106@gmail.com')
 
+        // How to get a value of an attribut
+        const placeholderValue = await emailField.getAttribute('placeholder')
+        expect(placeholderValue).toEqual('Email')
     })
 })

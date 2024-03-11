@@ -4,6 +4,8 @@ test.beforeEach(async({page}) =>{
     await page.goto("http://localhost:4200/"); // Goes to the homepage of the application
         // page.goto returns a promise we need to use asynchronous nature "await"
         // for the methods with promise return type always use "Async -Await"
+        // await page.getByText('Forms').click()
+        // await page.getByText('Form Layouts').click()
 })
 
 // Grouping tests
@@ -35,7 +37,7 @@ test.describe("Test suite 2", ()=>{
 
 })
 
-test.describe.only("Locator Syntax", ()=>{
+test.describe("Locator Syntax", ()=>{
     test.beforeEach(async({page})=>{
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
@@ -71,3 +73,24 @@ test.describe.only("Locator Syntax", ()=>{
     })
 })
 
+test.describe.only("Using user facing locators",()=>{
+    test.beforeEach(async({page})=>{
+        await page.getByText('Forms').click()
+        await page.getByText('Form Layouts').click()
+    })
+
+    test('UUFL', async({page})=>{
+        await page.getByRole('textbox', {name:'Email'}).first().click()
+        await page.getByRole('button', {name:'Sign in'}).first().click()
+
+        await page.getByLabel('Email address').first().click()
+
+        await page.getByPlaceholder('Password').first().click()
+
+        await page.getByText('Using the Grid').click()
+
+        await page.getByTestId('SignIn').click()
+
+        await page.getByTitle('IoT Dashboard').click()
+    })
+})

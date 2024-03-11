@@ -140,4 +140,12 @@ test.describe('Locating  Elements', ()=>{
         // Asserions
         await expect(emailField).toHaveValue("korijunior106@gmail.com")
     })
+
+    test('Extracting Values from DOM', async({page})=>{
+        // Get single test value
+        const basicForm =page.locator('nb-card').filter({hasText: 'Basic form'})
+        const buttonText = await basicForm.locator('button').textContent()
+        expect(buttonText).toEqual('Submit')
+
+    })
 })

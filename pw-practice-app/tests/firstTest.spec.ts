@@ -147,5 +147,10 @@ test.describe('Locating  Elements', ()=>{
         const buttonText = await basicForm.locator('button').textContent()
         expect(buttonText).toEqual('Submit')
 
+        // Get all Text values
+        const allRadioButtnLables= await page.locator('nb-radio').allTextContents()
+        expect(allRadioButtnLables).toContain('Option 1')
+
+        
     })
 })

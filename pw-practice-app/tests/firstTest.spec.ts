@@ -1,4 +1,4 @@
-import {test} from "@playwright/test";
+import {test,expect} from "@playwright/test";
 
 test.beforeEach(async({page}) =>{
     await page.goto("http://localhost:4200/"); // Goes to the homepage of the application
@@ -124,5 +124,20 @@ test.describe('Locating  Elements', ()=>{
 
         // 5. Go a level up- NOT RECOMMENDED
         await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox',{name:'Password'}).click()
+    })
+
+    test('Reusing Locators', async({page})=>{
+        // Variables
+        const basicForm =page.locator('nb-card').filter({hasText: 'Basic form'})
+        const emailField = basicForm.getByRole('textbox',{name:"Email"})
+
+        // Insert values
+        await emailField.fill("korijunior106@gmail.com")
+        await basicForm.getByRole('textbox',{name:'Password'}).fill("Welcome123")
+        await basicForm.locator(':text-is("Check me out")').check()
+        await basicForm.getByRole('button').click()
+        
+        // Asserions
+        await expect(emailField).toHaveValue("korijunior106@gmail.com")
     })
 })

@@ -151,6 +151,12 @@ test.describe('Locating  Elements', ()=>{
         const allRadioButtnLables= await page.locator('nb-radio').allTextContents()
         expect(allRadioButtnLables).toContain('Option 1')
 
-        
+        // How to get the Value of the input field.
+        const emailField =basicForm.getByRole('textbox',{name:'Email'})
+        await emailField.fill('korijunior106@gmail.com')
+        const emailValue = await emailField.inputValue()
+
+        expect(emailValue).toEqual('korijunior106@gmail.com')
+
     })
 })

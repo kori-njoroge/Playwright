@@ -95,8 +95,8 @@ test.describe("Using user facing locators",()=>{
     })
 })
 
-test.describe.only('Locating Child Elements', ()=>{
-    test('Child', async({page})=>{
+test.describe('Locating  Elements', ()=>{
+    test('locating Child elements', async({page})=>{
         const child = 'nb-card nb-radio :text-is("Option 1")'
         await page.locator(child).click()
         await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()
@@ -106,5 +106,23 @@ test.describe.only('Locating Child Elements', ()=>{
 
         await page.locator('nb-card').nth(3).getByRole('button').click(); //Not preferrable - the order of web elements can be changed.
 
+    })
+
+    test('locating parent elements', async({page})=>{
+        // 1. checking the text inside
+        await page.locator('nb-card',{hasText:'Using the Grid'}).getByRole('textbox',{name:'Email'}).click()
+
+        // 2. Using a locator inside the card
+        await page.locator('nb-card', {has: page.locator('#inputEmail')}).getByRole('textbox',{name:'Email'}).click()
+
+        // 3. Using filter
+        await page.locator('nb-card').filter({hasText: 'Basic form'}).getByRole('textbox',{name:'Email'}).click()
+        await page.locator('nb-card').filter({has: page.locator('.status-danger')}).getByRole('textbox',{name:'Password'}).click()
+
+        // 4. combine alot of them
+        await page.locator('nb-card').filter({has: page.locator('nb-checkbox')}).filter({hasText: "Sign in"}).getByRole('textbox',{name:'Password'}).click()
+
+        // 5. Go a level up- NOT RECOMMENDED
+        await page.locator(':text-is("Using the Grid")').locator('..').getByRole('textbox',{name:'Password'}).click()
     })
 })

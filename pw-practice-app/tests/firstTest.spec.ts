@@ -4,8 +4,8 @@ test.beforeEach(async({page}) =>{
     await page.goto("http://localhost:4200/"); // Goes to the homepage of the application
         // page.goto returns a promise we need to use asynchronous nature "await"
         // for the methods with promise return type always use "Async -Await"
-        // await page.getByText('Forms').click()
-        // await page.getByText('Form Layouts').click()
+        await page.getByText('Forms').click()
+        await page.getByText('Form Layouts').click()
 })
 
 // Grouping tests
@@ -73,7 +73,7 @@ test.describe("Locator Syntax", ()=>{
     })
 })
 
-test.describe.only("Using user facing locators",()=>{
+test.describe("Using user facing locators",()=>{
     test.beforeEach(async({page})=>{
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
@@ -92,5 +92,19 @@ test.describe.only("Using user facing locators",()=>{
         await page.getByTestId('SignIn').click()
 
         await page.getByTitle('IoT Dashboard').click()
+    })
+})
+
+test.describe.only('Locating Child Elements', ()=>{
+    test('Child', async({page})=>{
+        const child = 'nb-card nb-radio :text-is("Option 1")'
+        await page.locator(child).click()
+        await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()
+        // Both lines above perfom same action
+
+        await page.locator('nb-card').getByRole('button',{name: 'Sign in'}).first().click()//Combining regular locator with user facing locators
+
+        await page.locator('nb-card').nth(3).getByRole('button').click(); //Not preferrable - the order of web elements can be changed.
+
     })
 })

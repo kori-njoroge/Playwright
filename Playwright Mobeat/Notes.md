@@ -20,3 +20,19 @@ run in terminal - npx playwright test --ui
 npx playwright test --project=chromium --trace on - to run the tests and trace
 npx playwright test --project=chromium --debug - to run the tests and trace
 1. VS code ![VS Code](image-1.png)
+
+
+<!-- Hooks and Flow control -->
+1. test.beforeEach() - executes the code inside before each test is run.
+2. test.beforeAll() - used before anything is done in your test file.
+2 test.afterEach() - maybe to clear some test data inserted in the db.
+
+<!-- only and skip for test suites -->
+test.describe.only() - executes only the test suite
+test.describe.skip() - skipping the whole test suite
+test.it.only() - executing only
+
+
+<!-- Test your knowledge -->
+Which command is correct to run test with a title "first test" in a headed mode for "chromium" project? 
+ => npx playwright test --project=chromium -g "first test" --headed

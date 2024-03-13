@@ -163,3 +163,24 @@ test.describe('Locating  Elements', ()=>{
         expect(placeholderValue).toEqual('Email')
     })
 })
+test.describe("Assertions",()=>{
+    test('assertions', async({page})=>{
+        const basicFormBtn = page.locator('nb-card').filter({hasText: "Basic form"}).locator('button')
+
+        // General assertions
+        const value = 5
+        expect(value).toEqual(5)
+
+        const text = await basicFormBtn.textContent()
+        expect(text).toEqual('Submit')
+
+        // Locator Assertion
+        await expect(basicFormBtn).toHaveText('Submit')
+
+        // Soft assertion - when the line with assertion fails the playwright continues with execution of the test
+        // Soft assertions is a less strict form of asserting. It does not throw error if fails, instead it just logs the failure in console and continue testing.
+        await expect.soft(basicFormBtn).toHaveText('Submit7')
+        await basicFormBtn.click()
+    })
+   
+})

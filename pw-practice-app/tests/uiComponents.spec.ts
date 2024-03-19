@@ -25,4 +25,19 @@ test.describe("Ui Components",()=>{
         // Locator assertion
         await expect(usingTheGridEmailfield).toHaveValue('kori@testtest.com')
     })
+
+    test("Radio buttons", async({page})=>{
+        const usingTheGridEmailForm = page.locator('nb-card', {hasText: "Using the Grid"})
+
+        await usingTheGridEmailForm.getByLabel('Option 1').check({force: true})
+        const radioStatus =  await usingTheGridEmailForm.getByRole('radio', {name: "Option 1"}).isChecked()
+        
+        //Assertions
+        expect(radioStatus).toBeTruthy()
+        await expect(usingTheGridEmailForm.getByRole('radio', {name: "Option 1"})).toBeChecked()
+
+        await usingTheGridEmailForm.getByRole('radio', {name: "Option 2"}).check({force: true})
+        expect(await usingTheGridEmailForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
+        expect(await usingTheGridEmailForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
+    })
 })

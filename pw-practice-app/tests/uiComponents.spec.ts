@@ -103,17 +103,28 @@ test('Tooltips', async({page})=>{
         expect(toolTip).toEqual('This is a tooltip')
 })
 
-test.describe('Dialog Boxes',()=>{
-    test('Browser Dialog Boxes', async({page})=>{
-        await page.getByText('Tables & Data').click()
-        await page.getByText('Smart Table').click()
+test('Browser Dialog Boxes', async({page})=>{
+    await page.getByText('Tables & Data').click()
+    await page.getByText('Smart Table').click()
 
-        page.on('dialog', dialog =>{
-            expect(dialog.message()).toEqual('Are you sure you want to delete?')
-            dialog.accept()
-        })
-
-        await page.getByRole('table').locator('tr',{hasText:"mdo@gmail.com"}).locator('.nb-trash').click()
-        await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')
+    page.on('dialog', dialog =>{
+        expect(dialog.message()).toEqual('Are you sure you want to delete?')
+        dialog.accept()
     })
+
+    await page.getByRole('table').locator('tr',{hasText:"mdo@gmail.com"}).locator('.nb-trash').click()
+    await expect(page.locator('table tr').first()).not.toHaveText('mdo@gmail.com')
+})
+
+test('Web Tables', async({page})=>{
+    await page.getByText('Tables & Data').click()
+    await page.getByText('Smart Table').click()
+
+    // 1. Get the row by any text in the row
+    const targetRow = page.getByRole('row',{name: "Twitter@outlook.com"})
+    await targetRow.locator(`.nb-edit`).click()
+    await page.locator('input-editor').getByPlaceholder('Age').clear()
+    await page.locator('input-editor').getByPlaceholder('Age').fill('28')
+    await page.locator('.nb-checkmark').click()
+
 })

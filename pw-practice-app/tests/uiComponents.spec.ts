@@ -127,4 +127,12 @@ test('Web Tables', async({page})=>{
     await page.locator('input-editor').getByPlaceholder('Age').fill('28')
     await page.locator('.nb-checkmark').click()
 
+    //2. Get the row based on  the value in the specific column
+    await page.locator('.ng2-smart-page-link').getByText('2').click()
+    const targetRowById = page.getByRole('row',{name: '11'}).filter({has: page.locator('td').nth(1).getByText('11')})
+    await targetRowById.locator(`.nb-edit`).click()
+    await page.locator('input-editor').getByPlaceholder('E-mail').clear()
+    await page.locator('input-editor').getByPlaceholder('E-mail').fill('koritest@test.com')
+    await page.locator('.nb-checkmark').click()
+    await expect(targetRowById.locator('td').nth(5)).toHaveText('koritest@test.com')
 })

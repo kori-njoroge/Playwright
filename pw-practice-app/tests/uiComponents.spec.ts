@@ -176,11 +176,20 @@ test("Date picker <Smart> ", async({page})=>{
     await calendarInputField.click()
 
     let date = new Date()
-    date.setDate(date.getDate() + 14)
+    date.setDate(date.getDate() + 500)
     const expectedDate = date.getDate().toString()
     const expectedMonthShot = date.toLocaleDateString('En-US', {month: 'short'})
+    const expectedMonthLong = date.toLocaleDateString('En-US', {month: 'long'})
+
     const expectedYear = date.getFullYear()
     const dateToAssert =`${expectedMonthShot} ${expectedDate}, ${expectedYear}`
+
+    let calendarMonthYear = await page.locator('nb-calendar-view-mode').textContent()
+    const expectedMonthAndYear = ` ${expectedMonthLong} ${expectedYear}`
+    while(!calendarMonthYear.includes(expectedMonthAndYear)){
+        await page.locator('nb-calendar-pageable-navigation [data-name="chevron-right"]').click()
+        calendarMonthYear = await page.locator('nb-calendar-view-mode').textContent()
+    }
 
     await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click()
     await expect(calendarInputField).toHaveValue(dateToAssert)

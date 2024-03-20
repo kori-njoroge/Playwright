@@ -179,7 +179,7 @@ test.describe("Assertions",()=>{
 
         // Soft assertion - when the line with assertion fails the playwright continues with execution of the test
         // Soft assertions is a less strict form of asserting. It does not throw error if fails, instead it just logs the failure in console and continue testing.
-        await expect.soft(basicFormBtn).toHaveText('Submit7')
+        await expect.soft(basicFormBtn).toHaveText('Submit')
         await basicFormBtn.click()
     })
    

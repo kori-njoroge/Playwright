@@ -176,7 +176,7 @@ test("Date picker <Smart> ", async({page})=>{
     await calendarInputField.click()
 
     let date = new Date()
-    date.setDate(date.getDate() + 500)
+    date.setDate(date.getDate() + 200)
     const expectedDate = date.getDate().toString()
     const expectedMonthShot = date.toLocaleDateString('En-US', {month: 'short'})
     const expectedMonthLong = date.toLocaleDateString('En-US', {month: 'long'})

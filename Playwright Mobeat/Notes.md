@@ -36,3 +36,14 @@ test.it.only() - executing only
 <!-- Test your knowledge -->
 Which command is correct to run test with a title "first test" in a headed mode for "chromium" project? 
  => npx playwright test --project=chromium -g "first test" --headed
+
+
+ <!-- Test timeout -->
+ 1. test.slow() - increases the default timeout by three times
+ 2. testInfo.setTimeout(testInfo.timeout + 5000); // adding 5 seconds more time to the test
+3. test.settimeout - set default time out
+
+> **in the playwight config file**
+expect:{
+    timeout: 2000
+}

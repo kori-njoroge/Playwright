@@ -41,3 +41,20 @@ test.describe("Ui Components",()=>{
         expect(await usingTheGridEmailForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
     })
 })
+
+test('checkboxes',async({page})=>{
+    await page.getByText('Modal & Overlays').click()
+    await page.getByText('Toastr').click()
+
+    await page.getByRole('checkbox',{name: 'Hide on Click'}).uncheck({force: true})
+    await page.getByRole('checkbox',{name: 'Prevent arising of duplicate toast'}).check({force: true})
+
+    const allBoxes = page.getByRole('checkbox')
+    for(const box of await allBoxes.all()){
+        // await box.check({force: true})
+        await box.uncheck({force: true})
+        // expect(await box.isChecked()).toBeTruthy()
+        expect(await box.isChecked()).toBeFalsy()
+    }    
+    // await page
+})

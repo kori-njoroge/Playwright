@@ -157,7 +157,7 @@ test('Web Tables', async({page})=>{
     }
 })
 
-test("Date picker", async({page})=>{
+test("Date picker <Manualy> ", async({page})=>{
     await page.getByText('Forms').click()
     await page.getByText('Datepicker').click()
 
@@ -166,4 +166,22 @@ test("Date picker", async({page})=>{
 
     await page.locator('[class="day-cell ng-star-inserted"]').getByText('1', {exact: true}).click()
     await expect(calendarInputField).toHaveValue('Mar 1, 2024')
+})
+
+test("Date picker <Smart> ", async({page})=>{
+    await page.getByText('Forms').click()
+    await page.getByText('Datepicker').click()
+
+    const calendarInputField = page.getByPlaceholder('Form Picker')
+    await calendarInputField.click()
+
+    let date = new Date()
+    date.setDate(date.getDate() + 14)
+    const expectedDate = date.getDate().toString()
+    const expectedMonthShot = date.toLocaleDateString('En-US', {month: 'short'})
+    const expectedYear = date.getFullYear()
+    const dateToAssert =`${expectedMonthShot} ${expectedDate}, ${expectedYear}`
+
+    await page.locator('[class="day-cell ng-star-inserted"]').getByText(expectedDate, {exact: true}).click()
+    await expect(calendarInputField).toHaveValue(dateToAssert)
 })

@@ -88,3 +88,17 @@ test('List and Dropdowns', async({page})=>{
             await dropdownmenu.click()
     }
 })
+
+test('Tooltips', async({page})=>{
+        await page.getByText('Modal & Overlays').click()
+        await page.getByText('Tooltip').click()
+
+        const tooltipCard = page.locator('nb-card',{hasText: "Tooltip Placements"})
+        await tooltipCard.getByRole('button',{name: 'Top'}).hover()
+
+        // To see the tool tip insect your browser, go to sources, click hover on the tooltip element and click window+F8 to freeze the browser not go back to elements and get locators for the tooltip
+
+        page.getByRole('tooltip')// works only when the tooltip role is created.
+        const toolTip = await page.locator('nb-tooltip').textContent()
+        expect(toolTip).toEqual('This is a tooltip')
+})

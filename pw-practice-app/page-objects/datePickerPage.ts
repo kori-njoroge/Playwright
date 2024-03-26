@@ -1,22 +1,22 @@
-import {Page, expect} from '@playwright/test'
+import { Page, expect } from '@playwright/test'
+import { HelperBase } from './helperBase'
 
-export class DatePickerPage{
+export class DatePickerPage extends HelperBase {
 
-    private readonly page: Page
 
-    constructor(page: Page){
-        this.page = page
+    constructor(page: Page) {
+        super(page)
     }
 
-    async selectCommonDatePickerDateFromToday(numerofDaysFomToday: number){
+    async selectCommonDatePickerDateFromToday(numerofDaysFomToday: number) {
         const calendarInputField = this.page.getByPlaceholder('Form Picker')
         await calendarInputField.click()
         const dateToAssert = await this.selectDateInTheCalendar(numerofDaysFomToday)
-        
+
         await expect(calendarInputField).toHaveValue(dateToAssert)
     }
-    
-    async selectDatePickerWithRangeFromToday(startDayFromToday: number, endDayFromToday : number){
+
+    async selectDatePickerWithRangeFromToday(startDayFromToday: number, endDayFromToday: number) {
         const calendarInputField = this.page.getByPlaceholder('Range Picker')
         await calendarInputField.click()
         const dateToAssertStart = await this.selectDateInTheCalendar(startDayFromToday)
@@ -26,7 +26,7 @@ export class DatePickerPage{
         await expect(calendarInputField).toHaveValue(dateToAssert)
     }
 
-    private async selectDateInTheCalendar(numerofDaysFomToday: number){
+    private async selectDateInTheCalendar(numerofDaysFomToday: number) {
 
         let date = new Date()
         date.setDate(date.getDate() + numerofDaysFomToday)

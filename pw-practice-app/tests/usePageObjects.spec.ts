@@ -1,7 +1,5 @@
 import {test} from "@playwright/test"
-import { NavigatioPage } from "../page-objects/navigatioPage"
-import {FormLayoutsPage} from '../page-objects/formLayoutsPage'
-import { DatePickerPage } from "../page-objects/datePickerPage"
+import { PageManager } from "../page-objects/pageManager"
 
 test.beforeEach(async ({ page }) => {
     await page.goto('http://localhost:4200')
@@ -9,24 +7,23 @@ test.beforeEach(async ({ page }) => {
 })
 
 test("Navigate to form page", async({page})=>{
-    const navigateto = new NavigatioPage(page)
-    await navigateto.formLayoutsPage()
-    await navigateto.datePickerPage()
-    await navigateto.smartTablePage()
-    await navigateto.toolTipPage()
-    await navigateto.toastrPAge()
+    const pm = new PageManager(page)
+
+    await pm.navigateTo().formLayoutsPage()
+    await pm.navigateTo().datePickerPage()
+    await pm.navigateTo().smartTablePage()
+    await pm.navigateTo().toolTipPage()
+    await pm.navigateTo().toastrPAge()
 })
 
 test('Parameterized Methods', async({page})=>{
-    const navigateTo = new NavigatioPage(page)
-    const onFormLayoutsPage = new FormLayoutsPage(page)
-    const onDatePickerPage = new DatePickerPage(page)
+    const pm = new PageManager(page)
 
-    await navigateTo.formLayoutsPage()
-    await onFormLayoutsPage.submitUsingTheGrid('kori@test.com','Password','Option 1')
-    await onFormLayoutsPage.submitInlineForm('Gideon Kori','Kori@test.com',true)
+    await pm.navigateTo().formLayoutsPage()
+    await pm.onFormLayoutsPage().submitUsingTheGrid('kori@test.com','Password','Option 1')
+    await pm.onFormLayoutsPage().submitInlineForm('Gideon Kori','Kori@test.com',true)
 
-    await navigateTo.datePickerPage()
-    await onDatePickerPage.selectCommonDatePickerDateFromToday(200)
+    await pm.navigateTo().datePickerPage()
+    await pm.onDatePickerPage().selectCommonDatePickerDateFromToday(200)
     // await onDatePickerPage.selectDatePickerWithRangeFromToday(6,20)
 })

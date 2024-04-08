@@ -12,15 +12,7 @@ test.beforeEach(async ({ page }) => {
     })
   })
 
-
-
   await page.goto("https://conduit.bondaracademy.com/")
-  // login process
-  await page.getByText('Sign in').click()
-  await page.getByRole('textbox', { name: 'Email' }).fill('pwtest@test.com')
-  await page.getByRole('textbox', { name: 'Password' }).fill('Welcome1')
-  await page.getByRole('button', { name: 'Sign in' }).click()
-  await page.waitForTimeout(500)
 })
 
 test('has title', async ({ page }) => {
